@@ -1,0 +1,12 @@
+
+
+button,
+div,
+form,
+input {
+  margin: 0px;
+}
+
+.topic {
+  float: left;
+}
