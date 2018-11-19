@@ -4,7 +4,7 @@ var topics = ["matrix-the-movie", "alien the movie", "ex-machina", "star-wars", 
 
 // Variables
 var limitImg = 10;
-
+var imagePack = {};
 // displayImages function re-renders the HTML to display the appropriate content
 
 function displayImages() {
@@ -19,33 +19,55 @@ function displayImages() {
     method: "GET"
   }).then(function(response) {
       console.log(response);
+      // console.log(JSON.stringify(response))
+
+      console.log ("imagePack : " + imagePack); 
 
       $("#images-view").empty();
 
 
       for (var index=0; index<limitImg; index++) {
 
+
+        imagePack = {index: {
+          J: response.data[index].images.fixed_height_small.url,
+          G: response.data[index].images.fixed_height_downsampled.url
+          }
+        };
+
+        console.log("imagePack : " + imagePack); 
+        console.log(imagePack.index.J)
+        console.log(imagePack.index.G)
+
         // Retrieving image info
         var rating = response.data[index].rating;
+        var title = response.data[index].title;
+        var datetime = response.data[index].import_datetime;
+
         var imgjpgURL = response.data[index].images.fixed_height_small.url;
 
         // Creating html elements for info
-        var pOne = $("<p>").text("Rating: " + rating);
-
+        // var pOne = $("<p>").text("Title: " + title);
+        var pTwo = $("<p>").text("Rating: " + rating);
+        // var pThree = $("<p>").text("Import datetime: " + datetime);
         // Creating html elements for the image  
         var image = $("<img>").attr("src", imgjpgURL);
         // Adding 
         image.addClass("image-click");
         // Adding a data-attribute
         image.attr("data-index", index);
-      
-
+        image.attr("jpgorgif", "J");
+        image.attr("id", "I" + index);
+   
         // Creating new div
-        var topicDiv = $("<div class='topic m-3'>");
-        topicDiv.append(pOne);
+        var topicDiv = $("<div class='topic m-1'>");
         topicDiv.append(image);
+        // topicDiv.append(pOne);
+        topicDiv.append(pTwo);
+        // topicDiv.append(pThree);
+        
 
-        // Adding new div to the images-vies col
+        // Adding new div to the images-view col
         $("#images-view").append(topicDiv);
         console.log("append: " + index);
     
@@ -78,10 +100,46 @@ function renderButtons() {
   }
 }
 
+// This function switch images still | animated
+function switchImages() {
+  
+  var imageClicked = $(this).attr("data-index");
+  var imageType = $(this).attr("jpgorgif");
+  
+  console.log("imageClicked: " + imageClicked);
+  console.log("imageType: " + imageType);
+
+  console.log("switch" + imagePack.index.J)
+  console.log("switch" + imagePack.index.G)
+
+  if (imageType === "J") {
+
+    var imgjpgURL = imagePack.index.G;
+     $("img[data-index='0']").attr("src", imgjpgURL);
+    $("img[data-index='0']").attr("jpgorgif", "G");
+    // $('#' +imageClicked).attr("src", imgjpgURL);
+    // $('#' +imageClicked).attr("jpgorgif", "G");
+  }
+  else {
+    var imgjpgURL = imagePack.index.J;
+    $("img[data-index='0']").attr("src", imgjpgURL);
+    $("img[data-index='0']").attr("jpgorgif", "J");
+  }
+
+  // $('#one img #'+id)
+  // $("img[data-index='0']").attr("src", imgjpgURL);
+  //   $("img[data-index='0']").attr("jpgorgif", "G");
+  // imageID = "I" + imageClicked;
+  // console.log("imageID: " + imageID);
+  // $("a[data-ia='hola']").hide();
+  // $("#I0").append(image);
+  }
+  
+
+
 // This function handles events where a topic button is clicked
 $("#add-topics").on("click", function(event) {
   console.log("click");
-  console.log(this);
 
   event.preventDefault();
   // This line grabs the input from the textbox
@@ -98,6 +156,9 @@ $("#add-topics").on("click", function(event) {
 
 // Adding a click event listener to all elements with a class of "topic-btn"
 $(document).on("click", ".topic-btn", displayImages);
+
+$(document).on("click", ".image-click", switchImages);
+
 
 // Calling the renderButtons function to display the intial buttons
 renderButtons();
