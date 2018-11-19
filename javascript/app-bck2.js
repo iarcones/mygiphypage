@@ -19,7 +19,7 @@ function displayImages() {
     method: "GET"
   }).then(function(response) {
       console.log(response);
-     //console.log(JSON.stringify(response))
+      // console.log(JSON.stringify(response))
 
       console.log ("imagePack : " + imagePack); 
 
@@ -29,17 +29,15 @@ function displayImages() {
       for (var index=0; index<limitImg; index++) {
 
 
-        imagePack = {[index]: {
-           J: response.data[index].images.fixed_height_small.url,
-           G: response.data[index].images.fixed_height_small_still.url
+        imagePack = {index: {
+          J: response.data[index].images.fixed_height_small.url,
+          G: response.data[index].images.fixed_height_small_still.url
           }
         };
 
         console.log("imagePack : " + imagePack); 
-        imagePackSTR = JSON.stringify(imagePack);
-        console.log("imagePackSTR : " + imagePackSTR); 
-        console.log(imagePack[index].J)
-        console.log(imagePack[index].G)
+        console.log(imagePack.index.J)
+        console.log(imagePack.index.G)
 
         // Retrieving image info
         var rating = response.data[index].rating;
@@ -111,18 +109,18 @@ function switchImages() {
   console.log("imageClicked: " + imageClicked);
   console.log("imageType: " + imageType);
 
-  console.log("switch" + imagePack[imageClicked])
-  console.log("switch" + imagePack[imageClicked])
+  console.log("switch" + imagePack.index.J)
+  console.log("switch" + imagePack.index.G)
 
   if (imageType === "J") {
 
-    var imgjpgURL = imagePack[imageClicked].G;
+    var imgjpgURL = imagePack.index.G;
 
     $('#' +imageClicked).attr("src", imgjpgURL);
     $('#' +imageClicked).attr("jpgorgif", "G");
   }
   else {
-    var imgjpgURL = imagePack[imageClicked].J;
+    var imgjpgURL = imagePack.index.J;
      $('#' +imageClicked).attr("src", imgjpgURL);
      $('#' +imageClicked).attr("jpgorgif", "J");
   }
