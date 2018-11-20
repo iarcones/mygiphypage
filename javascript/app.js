@@ -99,14 +99,9 @@ function renderButtons() {
   // This function switch images still | animated
   function switchImages() {
 
-    console.log("this: " + this);
     var imageClicked = $(this).attr("data-index");
     var imageCurrent = $(this).attr("src");
     var imageAlt = $(this).attr("altURL");
-
-    console.log("imageClicked: " + imageClicked);
-    console.log("imageCurrent: " + imageCurrent);
-    console.log("imageAlt: " + imageAlt);
 
     $(this).attr("src", $(this).attr("altURL"));
     $(this).attr("altURL", imageCurrent);
@@ -132,7 +127,8 @@ function renderButtons() {
     // Calling to displayImages direct from the submit new topic
     displayImages(topic);
 
-    ////$(this).attr("#topic-input", val(""));
+    // clear the input text
+    $("#topic-input").val("");
    
   });
 
