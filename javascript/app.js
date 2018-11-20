@@ -1,6 +1,6 @@
 // Initial array of topics
 
-var topics = ["matrix-the-movie", "alien the movie", "ex-machina", "star-wars", "terminator", "blade-runner", "back-to-the-future", "mad-max", "star-trek"];
+var topics = ["matrix-the-movie", "alien the movie", "ex-machina", "star-wars", "terminator", "blade-runner", "back-to-the-future", "mad-max", "2001 the movie", "star-trek", "dune the movie"];
 
 // Variables
 var limitImg = 10;
@@ -132,6 +132,8 @@ function renderButtons() {
     // Calling to displayImages direct from the submit new topic
     displayImages(topic);
 
+    ////$(this).attr("#topic-input", val(""));
+   
   });
 
   // Adding a click event listener to all elements with a class of "topic-btn"
@@ -142,3 +144,4 @@ function renderButtons() {
 
   // Calling the renderButtons function to display the intial buttons
   renderButtons();
+  displayImages(topics[0]);

@@ -1,4 +1,12 @@
+body {
 
+  background-image: url("../images/gravel.png");
+  background-repeat: repeat;
+  background-color:lightgray;
+  margin: 0 0;
+ 
+
+}
 
 button,
 div,
@@ -15,3 +23,29 @@ p {
   font-size: 12px;
   margin: 0;
 }
+
+button {
+  
+  background-color: cadetblue;
+  margin: 5px;
+  padding: 5px;
+  color: white;
+  border: 0;
+
+}
+
+h1 {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color:cadetblue;
+  font-size: 50px;
+}
+
+.area {
+  
+  padding-top: 15px;
+  padding-bottom: 20px;
+  background-color: rgba(128, 128, 128, 0.493);
+}
+
