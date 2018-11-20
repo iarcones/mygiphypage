@@ -1,10 +1,9 @@
-body {
 
+body {
   background-image: url("../images/gravel.png");
   background-repeat: repeat;
   background-color:lightgray;
   margin: 0 0;
- 
 
 }
 
@@ -43,9 +42,32 @@ h1 {
 }
 
 .area {
-  
-  padding-top: 15px;
-  padding-bottom: 20px;
+  padding: 20px;
+
   background-color: rgba(128, 128, 128, 0.493);
 }
+
+#add-topics {
+  background-color: cadetblue;
+  margin-top: 4px;
+  padding: 0 10px 0 10px;
+  color: white;
+  border: 0;
+
+}
+
+label {
+  color: cadetblue;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color:cadetblue;
+  font-size: 10px;
+}
+
 

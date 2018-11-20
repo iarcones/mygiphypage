@@ -1,9 +1,9 @@
 // Initial array of topics
 
-var topics = ["matrix-the-movie", "alien the movie", "ex-machina", "star-wars", "terminator", "blade-runner", "back-to-the-future", "mad-max", "2001 the movie", "star-trek", "dune the movie"];
+var topics = ["Matrix the movie", "Alien the movie", "Ex-Machina", "Star Wars", "Terminator", "Blade Runner", "Back to the future", "Mad Max", "2001 the movie", "Star Trek", "Dune the movie"];
 
 // Variables
-var limitImg = 10;
+var limitImg = 20;
 
 // displayImages function re-renders the HTML to display the appropriate content
 
