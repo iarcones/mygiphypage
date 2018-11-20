@@ -7,10 +7,22 @@ var limitImg = 10;
 
 // displayImages function re-renders the HTML to display the appropriate content
 
-function displayImages() {
+function getTopic() {
+
+  console.log(this);
 
   var topic = $(this).attr("data-name");
+
+  console.log("topic-1: " + topic);
+  displayImages(topic);
+  
+}
+
+function displayImages(topic) {
+ console.log("topic-2: " + topic);
+
   var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=U2E0KeRa320EgNxloxFE3VwHL3OAKsxA&limit=" + limitImg;
+  console.log("queryURL: " + queryURL);
 
   // Creating an AJAX call for the specific topic button being clicked
 
@@ -60,6 +72,7 @@ function displayImages() {
 }
 
 
+
 function renderButtons() {
 
   // Deleting the topics prior to adding new topics
@@ -83,47 +96,49 @@ function renderButtons() {
   }
 }
 
-// This function switch images still | animated
-function switchImages() {
+  // This function switch images still | animated
+  function switchImages() {
 
-  console.log("this: " + this);
-  var imageClicked = $(this).attr("data-index");
-  var imageCurrent = $(this).attr("src");
-  var imageAlt = $(this).attr("altURL");
+    console.log("this: " + this);
+    var imageClicked = $(this).attr("data-index");
+    var imageCurrent = $(this).attr("src");
+    var imageAlt = $(this).attr("altURL");
 
-  console.log("imageClicked: " + imageClicked);
-  console.log("imageCurrent: " + imageCurrent);
-  console.log("imageAlt: " + imageAlt);
+    console.log("imageClicked: " + imageClicked);
+    console.log("imageCurrent: " + imageCurrent);
+    console.log("imageAlt: " + imageAlt);
 
-  $(this).attr("src", $(this).attr("altURL"));
-  $(this).attr("altURL", imageCurrent);
+    $(this).attr("src", $(this).attr("altURL"));
+    $(this).attr("altURL", imageCurrent);
 
-}
+  }
 
 
 
-// This function handles events where a topic button is clicked
-$("#add-topics").on("click", function (event) {
+  // This function handles events where a topic button is clicked
+  $("#add-topics").on("click", function (event) {
 
-  event.preventDefault();
-  // This line grabs the input from the textbox
-  var topic = $("#topic-input").val().trim();
+    event.preventDefault();
 
-  // var topic = $("#topic-input").val();
-  console.log("topic to add: " + topic);
+    // This line grabs the input from the textbox
+    var topic = $("#topic-input").val().trim();
+  
+    // Adding topic from the textbox to our array
+    topics.push(topic);
 
-  // Adding topic from the textbox to our array
-  topics.push(topic);
+    // Calling renderButtons which handles the processing of our topic array
+    renderButtons();
 
-  // Calling renderButtons which handles the processing of our topic array
+    // Calling to displayImages direct from the submit new topic
+    displayImages(topic);
+
+  });
+
+  // Adding a click event listener to all elements with a class of "topic-btn"
+  $(document).on("click", ".topic-btn", getTopic);
+
+  $(document).on("click", ".image-click", switchImages);
+
+
+  // Calling the renderButtons function to display the intial buttons
   renderButtons();
-});
-
-// Adding a click event listener to all elements with a class of "topic-btn"
-$(document).on("click", ".topic-btn", displayImages);
-
-$(document).on("click", ".image-click", switchImages);
-
-
-// Calling the renderButtons function to display the intial buttons
-renderButtons();
