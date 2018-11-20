@@ -28,12 +28,19 @@ function displayImages() {
 
       for (var index=0; index<limitImg; index++) {
 
+// New object every time
+        // imagePack = {[index]: {
+        //    J: response.data[index].images.fixed_height_small.url,
+        //    G: response.data[index].images.fixed_height_small_still.url
+        //   }
+        // };
 
-        imagePack = {[index]: {
-           J: response.data[index].images.fixed_height_small.url,
-           G: response.data[index].images.fixed_height_small_still.url
-          }
-        };
+// Proper way. Adding new key
+        imagePack[index] = {
+          J: response.data[index].images.fixed_height_small_still.url,
+          G: response.data[index].images.fixed_height_small.url
+         }
+       
 
         console.log("imagePack : " + imagePack); 
         imagePackSTR = JSON.stringify(imagePack);
@@ -46,7 +53,7 @@ function displayImages() {
         var title = response.data[index].title;
         var datetime = response.data[index].import_datetime;
 
-        var imgjpgURL = response.data[index].images.fixed_height_small.url;
+        var imgjpgURL = response.data[index].images.fixed_height_small_still.url;
 
         // Creating html elements for info
         // var pOne = $("<p>").text("Title: " + title);
@@ -111,13 +118,11 @@ function switchImages() {
   console.log("imageClicked: " + imageClicked);
   console.log("imageType: " + imageType);
 
-  console.log("switch" + imagePack[imageClicked])
-  console.log("switch" + imagePack[imageClicked])
 
   if (imageType === "J") {
-
+    console.log(imagePack, imageClicked)
     var imgjpgURL = imagePack[imageClicked].G;
-
+    
     $('#' +imageClicked).attr("src", imgjpgURL);
     $('#' +imageClicked).attr("jpgorgif", "G");
   }
