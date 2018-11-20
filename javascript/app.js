@@ -117,7 +117,12 @@ function renderButtons() {
 
     // This line grabs the input from the textbox
     var topic = $("#topic-input").val().trim();
-  
+    
+    if (topic === "") {
+      console.log("empty");
+      return;
+    }
+
     // Adding topic from the textbox to our array
     topics.push(topic);
 
