@@ -10,7 +10,7 @@ var limitImg = 10;
 function displayImages() {
 
   var topic = $(this).attr("data-name");
-  var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=U2E0KeRa320EgNxloxFE3VwHL3OAKsxA&limit=" + limitImg;
+  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=U2E0KeRa320EgNxloxFE3VwHL3OAKsxA&limit=" + limitImg;
 
   // Creating an AJAX call for the specific topic button being clicked
 
@@ -104,11 +104,11 @@ function switchImages() {
 
 // This function handles events where a topic button is clicked
 $("#add-topics").on("click", function (event) {
-  console.log("click");
 
   event.preventDefault();
   // This line grabs the input from the textbox
-  var topic = $("#topic-input").val().trim()
+  var topic = $("#topic-input").val().trim();
+
   // var topic = $("#topic-input").val();
   console.log("topic to add: " + topic);
 
