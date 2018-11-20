@@ -1,50 +1,91 @@
 // Initial array of topics
+
 var topics = ["matrix-the-movie", "alien the movie", "ex-machina", "star-wars", "terminator", "blade-runner", "back-to-the-future", "mad-max", "star-trek"];
+
+// Variables
 var limitImg = 10;
+var imagePack = {};
 // displayImages function re-renders the HTML to display the appropriate content
+
 function displayImages() {
 
   var topic = $(this).attr("data-name");
   var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=U2E0KeRa320EgNxloxFE3VwHL3OAKsxA&limit=" + limitImg;
 
   // Creating an AJAX call for the specific topic button being clicked
+
   $.ajax({
     url: queryURL,
     method: "GET"
   }).then(function(response) {
-    console.log(response);
+      console.log(response);
+     //console.log(JSON.stringify(response))
 
-    $("#topics-view").empty();
+      console.log ("imagePack : " + imagePack); 
+
+      $("#images-view").empty();
 
 
-    for (var index=0; index<limitImg; index++) {
+      for (var index=0; index<limitImg; index++) {
 
-    // Retrieving image info
-    var rating = response.data[0].rating;
+// New object every time
+        // imagePack = {[index]: {
+        //    J: response.data[index].images.fixed_height_small.url,
+        //    G: response.data[index].images.fixed_height_small_still.url
+        //   }
+        // };
 
-    var imgjpgURL = response.data[index].images.fixed_height_small.url;
+// Proper way. Adding new key
+        imagePack[index] = {
+          J: response.data[index].images.fixed_height_small_still.url,
+          G: response.data[index].images.fixed_height_small.url
+         }
+       
 
-    // Creating html elements
+        console.log("imagePack : " + imagePack); 
+        imagePackSTR = JSON.stringify(imagePack);
+        console.log("imagePackSTR : " + imagePackSTR); 
+        console.log(imagePack[index].J)
+        console.log(imagePack[index].G)
 
-    var pOne = $("<p>").text("Rating: " + rating);
-    var image = $("<img>").attr("src", imgjpgURL);
+        // Retrieving image info
+        var rating = response.data[index].rating;
+        var title = response.data[index].title;
+        var datetime = response.data[index].import_datetime;
 
-    // Creating new div
-    var topicDiv = $("<div class='topic'>");
-    topicDiv.append(pOne);
-    topicDiv.append(image);
+        var imgjpgURL = response.data[index].images.fixed_height_small_still.url;
 
-    $("#topics-view").append(topicDiv);
-    console.log("append: " + index);
+        // Creating html elements for info
+        // var pOne = $("<p>").text("Title: " + title);
+        var pTwo = $("<p>").text("Rating: " + rating);
+        // var pThree = $("<p>").text("Import datetime: " + datetime);
+        // Creating html elements for the image  
+        var image = $("<img>").attr("src", imgjpgURL);
+        // Adding 
+        image.addClass("image-click");
+        // Adding a data-attribute
+        image.attr("data-index", index);
+        image.attr("jpgorgif", "J");
+        image.attr("id", index);
+   
+        // Creating new div
+        var topicDiv = $("<div class='topic m-1'>");
+        topicDiv.append(image);
+        // topicDiv.append(pOne);
+        topicDiv.append(pTwo);
+        // topicDiv.append(pThree);
+        
+
+        // Adding new div to the images-view col
+        $("#images-view").append(topicDiv);
+        console.log("append: " + index);
     
-  }
-  
-    
+      }
+
   });
-
 }
 
-// Function for displaying topic data
+
 function renderButtons() {
 
   // Deleting the topics prior to adding new topics
@@ -68,10 +109,35 @@ function renderButtons() {
   }
 }
 
+// This function switch images still | animated
+function switchImages() {
+  
+  var imageClicked = $(this).attr("data-index");
+  var imageType = $(this).attr("jpgorgif");
+  
+  console.log("imageClicked: " + imageClicked);
+  console.log("imageType: " + imageType);
+
+
+  if (imageType === "J") {
+    console.log(imagePack, imageClicked)
+    var imgjpgURL = imagePack[imageClicked].G;
+    
+    $('#' +imageClicked).attr("src", imgjpgURL);
+    $('#' +imageClicked).attr("jpgorgif", "G");
+  }
+  else {
+    var imgjpgURL = imagePack[imageClicked].J;
+     $('#' +imageClicked).attr("src", imgjpgURL);
+     $('#' +imageClicked).attr("jpgorgif", "J");
+  }
+  }
+  
+
+
 // This function handles events where a topic button is clicked
 $("#add-topics").on("click", function(event) {
   console.log("click");
-  console.log(this);
 
   event.preventDefault();
   // This line grabs the input from the textbox
@@ -88,6 +154,9 @@ $("#add-topics").on("click", function(event) {
 
 // Adding a click event listener to all elements with a class of "topic-btn"
 $(document).on("click", ".topic-btn", displayImages);
+
+$(document).on("click", ".image-click", switchImages);
+
 
 // Calling the renderButtons function to display the intial buttons
 renderButtons();
