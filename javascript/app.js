@@ -1,9 +1,5 @@
-// Initial array of topics
-
-var topics = ["Matrix the movie", "Alien the movie", "Ex-Machina", "Star Wars", "Terminator", "Blade Runner", "Back to the future", "Mad Max", "2001 the movie", "Star Trek", "Dune the movie"];
-
 // Variables
-var limitImg = 20;
+var limitImg = 15;
 
 // displayImages function re-renders the HTML to display the appropriate content
 
@@ -125,6 +121,8 @@ function renderButtons() {
 
     // Adding topic from the textbox to our array
     topics.push(topic);
+    localStorage.clear();
+    localStorage.setItem("movies", topics);
 
     // Calling renderButtons which handles the processing of our topic array
     renderButtons();
@@ -143,6 +141,23 @@ function renderButtons() {
   $(document).on("click", ".image-click", switchImages);
 
 
+  // Getting the value from the localStorage
+  
+  if (localStorage.getItem("movies") === null) {
+    
+    // Initial array of topics
+    var topicsFirstTime = ["Matrix the movie", "Alien the movie", "Ex-Machina", "Star Wars", "Terminator", "Blade Runner", "Back to the future", "Mad Max", "2001 the movie", "Star Trek", "Dune the movie"];
+    localStorage.setItem("movies", topicsFirstTime);
+  }
+
+  topicsSTR = localStorage.getItem("movies");
+  console.log("topicsSTR: " + topicsSTR);
+  topics = topicsSTR.split(",");
+  console.log("topics: " + topics);
+
+
   // Calling the renderButtons function to display the intial buttons
   renderButtons();
   displayImages(topics[0]);
+
+
