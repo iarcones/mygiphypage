@@ -15,9 +15,8 @@ function getTopic() {
 }
 
 function displayImages(topic) {
- console.log("topic-2: " + topic);
 
-  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=U2E0KeRa320EgNxloxFE3VwHL3OAKsxA&limit=" + limitImg;
+  var queryURL = `https://api.giphy.com/v1/gifs/search?q=${topic}&api_key=U2E0KeRa320EgNxloxFE3VwHL3OAKsxA&limit=${limitImg}`;
   console.log("queryURL: " + queryURL);
 
   // Creating an AJAX call for the specific topic button being clicked
@@ -95,10 +94,8 @@ function renderButtons() {
   // This function switch images still | animated
   function switchImages() {
 
-    var imageClicked = $(this).attr("data-index");
-    var imageCurrent = $(this).attr("src");
-    var imageAlt = $(this).attr("altURL");
-
+   var imageCurrent = $(this).attr("src");
+  
     $(this).attr("src", $(this).attr("altURL"));
     $(this).attr("altURL", imageCurrent);
 
