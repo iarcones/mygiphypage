@@ -1,5 +1,5 @@
 // Variables
-var limitImg = 15;
+var limitImg = 16;
 
 // displayImages function re-renders the HTML to display the appropriate content
 
@@ -35,33 +35,36 @@ function displayImages(topic) {
       // Retrieving image info
       var rating = response.data[index].rating;
       var title = response.data[index].title;
-      var datetime = response.data[index].import_datetime;
+      // var datetime = moment(response.data[index].import_datetime).format("MM/DD/YY");
+      var datetime = moment(response.data[index].import_datetime).format("MM/DD/YYYY");
 
-      var imgjpgURLStill = response.data[index].images.fixed_height_small_still.url;
-      var imgjpgURLAnimate = response.data[index].images.fixed_height_small.url;
+      var imgjpgURLStill = response.data[index].images.downsized_still.url;
+      var imgjpgURLAnimate = response.data[index].images.downsized.url;
 
-      // Creating html elements for info
+      // // Creating html elements for info
       // var pOne = $("<p>").text("Title: " + title);
-      var pTwo = $("<p>").text("Rating: " + rating);
+      // var pTwo = $("<p>").text("Rating: " + rating);
       // var pThree = $("<p>").text("Import datetime: " + datetime);
-      // Creating html elements for the image  
-      var image = $("<img>").attr("src", imgjpgURLStill);
-      // Adding 
-      image.addClass("image-click");
-      // Adding a data-attribute
-      image.attr("data-index", index);
-      image.attr("altURL", imgjpgURLAnimate);
+      // // Creating html elements for the image  
+      // var image = $("<img>").attr("src", imgjpgURLStill);
+      // // Adding 
+      // image.addClass("image-click");
+      // // Adding a data-attribute
+      // image.attr("data-index", index);
+      // image.attr("altURL", imgjpgURLAnimate);
 
-      // Creating new div
-      var topicDiv = $("<div class='topic m-1'>");
-      topicDiv.append(image);
+      // // Creating new div
+      // var topicDiv = $("<div class='topic m-1'>");
+      // topicDiv.append(image);
       // topicDiv.append(pOne);
-      topicDiv.append(pTwo);
-      // topicDiv.append(pThree);
+      // topicDiv.append(pTwo);
+      // // topicDiv.append(pThree);
 
-      // Adding new div to the images-view col
-      $("#images-view").append(topicDiv);
+      // // Adding new div to the images-view col
+      // $("#images-view").append(topicDiv);
 
+      var imageCard = `<div class="col"><div class="card m-2" style="width: 16rem; height:18rem"><img src="${imgjpgURLStill}" altURL="${imgjpgURLAnimate}" class="card-img-top image-click" alt="${title}" style="width: 16rem; height:14rem"><div class="card-body p-2"><h6 class="card-title">${title}</h6><p class="card-text"><b>Rating:</b> ${rating} <br><b>Import date: </b>${datetime}</p></div>`
+      $("#images-view").append(imageCard);
     }
   });
 }

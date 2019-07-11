@@ -67,13 +67,15 @@ label {
   font-weight: bold;
 }
 
-/* .footer {
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  color:cadetblue;
-  font-size: 10px;
-} */
+.col{
+  padding-left: 0;
+  padding-right: 0;
+}
+#topics-form{
+  background-color: black;
+  padding: 1rem;
+  margin-right: 2rem;
+}
 
 
 /* Sticky footer styles
