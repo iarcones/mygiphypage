@@ -155,6 +155,6 @@ function renderButtons() {
 
   // Calling the renderButtons function to display the intial buttons
   renderButtons();
-  displayImages(topics[0]);
+  displayImages(topics[Math.floor(Math.random()*topics.length)]);
 
 
