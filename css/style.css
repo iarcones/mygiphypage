@@ -76,6 +76,11 @@ label {
   padding: 1rem;
   margin-right: 2rem;
 }
+#errormsg{
+  color:red;
+  font-size: 16px;
+}
+
 
 
 /* Sticky footer styles
