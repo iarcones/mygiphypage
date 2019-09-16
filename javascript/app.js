@@ -10,7 +10,6 @@ function getTopic () {
 
   var topic = $(this).attr("data-name");
 
-  console.log("topic-1: " + topic);
   displayImages(topic);
 
 }
@@ -26,7 +25,6 @@ function displayImages (topic) {
     url: queryURL,
     method: "GET"
   }).then(function (response) {
-    console.log(response);
 
     $("#images-view").empty();
 
@@ -41,28 +39,6 @@ function displayImages (topic) {
 
       var imgjpgURLStill = response.data[ index ].images.downsized_still.url;
       var imgjpgURLAnimate = response.data[ index ].images.downsized.url;
-
-      // // Creating html elements for info
-      // var pOne = $("<p>").text("Title: " + title);
-      // var pTwo = $("<p>").text("Rating: " + rating);
-      // var pThree = $("<p>").text("Import datetime: " + datetime);
-      // // Creating html elements for the image  
-      // var image = $("<img>").attr("src", imgjpgURLStill);
-      // // Adding 
-      // image.addClass("image-click");
-      // // Adding a data-attribute
-      // image.attr("data-index", index);
-      // image.attr("altURL", imgjpgURLAnimate);
-
-      // // Creating new div
-      // var topicDiv = $("<div class='topic m-1'>");
-      // topicDiv.append(image);
-      // topicDiv.append(pOne);
-      // topicDiv.append(pTwo);
-      // // topicDiv.append(pThree);
-
-      // // Adding new div to the images-view col
-      // $("#images-view").append(topicDiv);
 
       var imageCard = `<div class="col"><div class="card m-2" style="width: 16rem; height:18rem"><img src="${ imgjpgURLStill }" altURL="${ imgjpgURLAnimate }" class="card-img-top image-click" alt="${ title }" style="width: 16rem; height:14rem"><div class="card-body p-2"><h7 class="card-title">${ title }</h7><p class="card-text"><b>Rating:</b> ${ rating } <br><b>Import date: </b>${ datetime }</p></div>`
       $("#images-view").append(imageCard);
@@ -174,10 +150,7 @@ if (localStorage.getItem("movies") === null) {
 }
 
 topicsSTR = localStorage.getItem("movies");
-console.log("topicsSTR: " + topicsSTR);
 topics = topicsSTR.split(",");
-console.log("topics: " + topics);
-
 
 // Calling the renderButtons function to display the intial buttons
 renderButtons();
