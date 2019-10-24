@@ -40,7 +40,7 @@ function displayImages (topic) {
       var imgjpgURLStill = response.data[ index ].images.downsized_still.url;
       var imgjpgURLAnimate = response.data[ index ].images.downsized.url;
 
-      var imageCard = `<div class="col"><div class="card m-2" style="width: 16rem; height:18rem"><img src="${ imgjpgURLStill }" altURL="${ imgjpgURLAnimate }" class="card-img-top image-click" alt="${ title }" style="width: 16rem; height:14rem"><div class="card-body p-2"><h7 class="card-title">${ title }</h7><p class="card-text"><b>Rating:</b> ${ rating } <br><b>Import date: </b>${ datetime }</p></div>`
+      var imageCard = `<div class="col"><div class="card m-2" style="width: 16rem; height:18rem"><img src="${ imgjpgURLStill }" altURL="${ imgjpgURLAnimate }" class="card-img-top image-click" alt="${ title }" style="width: 16rem; height:14rem"><div class="card-body p-2"><p class="card-title">${ title }</p><p class="card-text"><b>Rating:</b> ${ rating } <br><b>Import date: </b>${ datetime }</p></div>`
       $("#images-view").append(imageCard);
     }
   });
@@ -137,8 +137,8 @@ $("#add-topics").on("click", function (event) {
 // Adding a click event listener to all elements with a class of "topic-btn"
 $(document).on("click", ".topic-btn", getTopic);
 
-// $(document).on("click", ".image-click", switchImages);
 $(document).on("mouseenter mouseleave", ".image-click", switchImages);
+
 
 // Getting the value from the localStorage
 

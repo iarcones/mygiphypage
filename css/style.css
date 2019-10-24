@@ -23,6 +23,11 @@ input {
   float: left;
 }
 
+.card-title{
+color: cadetblue;
+font-weight: bold;
+}
+
 p {
   font-size: 12px;
   margin: 0;
